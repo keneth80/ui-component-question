@@ -1,6 +1,7 @@
 // const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin      = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin   = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const helpers = require('./helpers');
@@ -35,6 +36,9 @@ module.exports = {
             filename: './index.html'
         }),
 
-        new BundleAnalyzerPlugin()
+        new CopyWebpackPlugin([
+            { from: './src/solution/dropdown/assets/**', to: './assets', flatten: true },
+            { from: './src/solution/dropdown/**', to: './', flatten: true }
+        ]),
     ]
 };
