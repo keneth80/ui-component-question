@@ -26,7 +26,6 @@ const bootstrap = () => {
         labelField: 'label',
         data: retrieveSelectList(),
         changeEvent: (event) => {
-            // POINT:  refresh 즉 이벤트를 받아서 해당하는 id에 속한 데이터로 화면을 변경하시오.
             displayUserList(
                 document.getElementById('userlist'),
                 event.id ? 
