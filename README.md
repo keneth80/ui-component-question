@@ -52,6 +52,7 @@ Run `npm run dev`
 
 
 ## 주요 학습 키워드
+- click event target element 설정에 대한 고민
 - selector.getBoundingClientRect() 함수
 - html element의 data 속성 (selector.dataset)
 - arrow function의 활용
