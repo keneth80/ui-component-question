@@ -1,4 +1,3 @@
-
 /*
 * title: DropDownList class
 * description: dropdown ui component
@@ -79,7 +78,7 @@ export class DropDownList {
         // 리스트를 갱신해야하므로 innerHTML사용함.
         selector.innerHTML = render;
 
-        // label position에 dropdown list 영역을 출력하기 위해 절대좌표를 가져오기 위한 getBoundingClientRect 함수호출
+        // label position에 dropdown list 영역을 출력하기 위해 좌표를 가져오기 위한 getBoundingClientRect 함수호출
         const labelRect = this.dropdownLabel.getBoundingClientRect();
         const target = document.querySelector('.dropdown-item-list-box');
         // +5 는 라벨영역이 살짝 보이게 하기 위함.
