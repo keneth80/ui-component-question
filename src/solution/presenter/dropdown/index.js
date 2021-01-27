@@ -1,3 +1,5 @@
+import { getElementIndex } from './util';
+
 /*
 * title: DropDownList class
 * description: dropdown ui component
@@ -19,9 +21,9 @@ export class DropDownList {
         this.currentIndex = -1;
 
         // data list의 id 필드 명시
-        this.idField = configuration.idField;
+        this.idField = configuration.idField ?? 'id';
         // data list의 label 필드 명시
-        this.labelField = configuration.labelField;
+        this.labelField = configuration.labelField ?? 'label';
         // 옵션 데이터 리스트
         this.data = configuration.data;
         // change 변경에 따른 callback
@@ -70,7 +72,6 @@ export class DropDownList {
             render += `
                 <div class="dropdown-item-box">
                     <span>${data[i][this.labelField]}</span>
-                    <div class="dropdown-item-cover" data-value="${data[i][this.idField]}"></div>
                 </div>
             `
         }
@@ -106,15 +107,14 @@ export class DropDownList {
         });
 
         document.querySelectorAll('.dropdown-item-box')
-        .forEach((item) => {
-            item.addEventListener('click', (event) => {
-                event.preventDefault();
-                const currentId = event.target.dataset.value;
-                const currentLabel = this.retriveOptionLabel(currentId);
+        .forEach((element) => {
+            element.addEventListener('click', (event) => {
+                const targetIndex = getElementIndex(document.querySelectorAll('.dropdown-item-box'), element);
+                const currentOption = this.retriveOptionByIndex(targetIndex);
                 if (this.currentIndex > -1) {
                     this.unselectedDropdownItem(this.currentIndex);
                 }
-                this.currentIndex = this.retriveOptionIndex(currentId);
+                this.currentIndex = targetIndex;
 
                 if (this.currentIndex > -1) {
                     this.selectedDropdownItem(this.currentIndex);
@@ -122,8 +122,8 @@ export class DropDownList {
 
                 // POINT: 함수를 참조하여 id, label 값을 인자로 넘겨 이벤트를 발생시키시오.
                 this.dispatchEvent({
-                    id: currentId,
-                    label: currentLabel
+                    id: currentOption[this.idField],
+                    label: currentOption[this.labelField]
                 });
             });
         });
@@ -151,13 +151,9 @@ export class DropDownList {
         document.querySelectorAll('.dropdown-item-box')[index].classList.remove('selected');
     }
 
-    retriveOptionIndex(id) {
-        // POINT: 해당 data에서 id에 해당하는 index를 리턴하시오. 
-        return this.data.findIndex((item) => item[this.idField] === id);
-    }
-
-    retriveOptionLabel(id) {
-        const targetLabel = this.data.find((item) => item[this.idField] === id);
-        return targetLabel ? targetLabel.label : this.emptyLabel;
+    retriveOptionByIndex(index) {
+        const targetOption = this.data[index];
+        !targetOption.label ? this.emptyLabel : targetOption.label;
+        return targetOption;
     }
 }

@@ -87,11 +87,3 @@ body {
     top: 0px;
     left: 0px;
 }
-
-.dropdown-item-cover {
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    position: absolute;
-}
