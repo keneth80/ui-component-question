@@ -48,12 +48,9 @@ Run `npm run dev`
 
 - q4. 함수(dispatchEvent)를 참조하여 id, label 값을 인자로 넘겨 이벤트를 발생시키시오.
 
-- q5. 해당 data에서 id에 해당하는 index를 리턴하시오.
-
 
 ## 주요 학습 키워드
 - click event target element 설정에 대한 고민
 - selector.getBoundingClientRect() 함수
-- html element의 data 속성 (selector.dataset)
 - arrow function의 활용
 - Template literals 을 활용한 html templete 관리

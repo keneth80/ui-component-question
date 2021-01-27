@@ -1,3 +1,4 @@
+import { getElementIndex } from './util';
 
 /*
 * title: DropDownList class
@@ -20,9 +21,9 @@ export class DropDownList {
         this.currentIndex = -1;
 
         // data list의 id 필드 명시
-        this.idField = configuration.idField;
+        this.idField = configuration.idField ?? 'id';
         // data list의 label 필드 명시
-        this.labelField = configuration.labelField;
+        this.labelField = configuration.labelField ?? 'label';
         // 옵션 데이터 리스트
         this.data = configuration.data;
         // change 변경에 따른 callback
@@ -67,11 +68,9 @@ export class DropDownList {
         
         let render = '<div class="dropdown-item-list-box">';
         for (let i = 0; i < data.length; i++) {
-            // data 속성에 value라는 key로 id값을 바인딩 한다.
             render += `
                 <div class="dropdown-item-box">
                     <span>${data[i][this.labelField]}</span>
-                    <div class="dropdown-item-cover" data-value="${data[i][this.idField]}"></div>
                 </div>
             `
         }
@@ -79,6 +78,7 @@ export class DropDownList {
         // 리스트를 갱신해야하므로 innerHTML사용함.
         selector.innerHTML = render;
 
+        // q1. label position에 dropdown list 영역을 출력하시오.
         // TODO: Write JS code here!'
         // label position에 dropdown list 영역을 출력
         const target = document.querySelector('.dropdown-item-list-box');
@@ -93,31 +93,32 @@ export class DropDownList {
     eventBinding() {
         // backdrop 영역 클릭 시 이벤트
         this.backdrop.addEventListener('click', () => {
+            // q2. backdrop 영역 클릭 시의 이벤트를 처리하시오.
             // TODO: Write JS code here!'
         });
 
         // label 영역 클릭 시 이벤트
         this.dropdownLabel.addEventListener('click', () => {
+            // q3. label 영역 클릭 시의 이벤트를 처리하시오.
             // TODO: Write JS code here!'
         });
 
         document.querySelectorAll('.dropdown-item-box')
         .forEach((item) => {
             item.addEventListener('click', (event) => {
-                event.preventDefault();
-                const currentId = event.target.dataset.value;
-                const currentLabel = this.retriveOptionLabel(currentId);
+                const targetIndex = getElementIndex(document.querySelectorAll('.dropdown-item-box'), element);
+                const currentOption = this.retriveOptionByIndex(targetIndex);
                 if (this.currentIndex > -1) {
                     this.unselectedDropdownItem(this.currentIndex);
                 }
-                this.currentIndex = this.retriveOptionIndex(currentId);
+                this.currentIndex = targetIndex;
 
                 if (this.currentIndex > -1) {
                     this.selectedDropdownItem(this.currentIndex);
                 }
 
+                // q4. 함수(dispatchEvent)를 참조하여 id, label 값을 인자로 넘겨 이벤트를 발생시키시오.
                 // TODO: Write JS code here!'
-                // 함수(dispatchEvent)를 참조하여 id, label 값을 외부로 전달. 
             });
         });
     }
@@ -142,14 +143,9 @@ export class DropDownList {
         document.querySelectorAll('.dropdown-item-box')[index].classList.remove('selected');
     }
 
-    retriveOptionIndex(id) {
-        // TODO: Write JS code here!'
-        // 해당 data에서 id에 해당하는 index를 리턴하시오. 
-        return -1;
-    }
-
-    retriveOptionLabel(id) {
-        const targetLabel = this.data.find((item) => item[this.idField] === id);
-        return targetLabel ? targetLabel.label : this.emptyLabel;
+    retriveOptionByIndex(index) {
+        const targetOption = this.data[index];
+        !targetOption.label ? this.emptyLabel : targetOption.label;
+        return targetOption;
     }
 }

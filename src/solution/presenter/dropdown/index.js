@@ -68,7 +68,6 @@ export class DropDownList {
         
         let render = '<div class="dropdown-item-list-box">';
         for (let i = 0; i < data.length; i++) {
-            // data 속성에 value라는 key로 id값을 바인딩 한다.
             render += `
                 <div class="dropdown-item-box">
                     <span>${data[i][this.labelField]}</span>
