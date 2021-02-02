@@ -1,5 +1,3 @@
-import { getElementIndex } from './util';
-
 /*
 * title: DropDownList class
 * description: dropdown ui component
@@ -31,7 +29,8 @@ export class DropDownList {
         // 선택할 때 마다 선택된 라벨을 표현해줄 element setup
         this.dropdownLabel = this.initialize(document.querySelector(configuration.selector), this.emptyLabel);
         // backdrop 영역 element setup
-        this.backdrop = document.querySelector(configuration.backdrop);this.dropdownItem = this.displayDropdownItemList(this.backdrop, configuration.data);
+        this.backdrop = document.querySelector(configuration.backdrop);
+        this.dropdownItem = this.displayDropdownItemList(this.backdrop, configuration.data);
         // event listen
         this.eventBinding();
     }
@@ -104,14 +103,13 @@ export class DropDownList {
         });
 
         document.querySelectorAll('.dropdown-item-box')
-        .forEach((item) => {
+        .forEach((item, index) => {
             item.addEventListener('click', (event) => {
-                const targetIndex = getElementIndex(document.querySelectorAll('.dropdown-item-box'), element);
-                const currentOption = this.retriveOptionByIndex(targetIndex);
+                const currentOption = this.retriveOptionByIndex(index);
                 if (this.currentIndex > -1) {
                     this.unselectedDropdownItem(this.currentIndex);
                 }
-                this.currentIndex = targetIndex;
+                this.currentIndex = index;
 
                 if (this.currentIndex > -1) {
                     this.selectedDropdownItem(this.currentIndex);

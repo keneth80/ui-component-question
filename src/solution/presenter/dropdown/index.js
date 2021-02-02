@@ -1,5 +1,3 @@
-import { getElementIndex } from './util';
-
 /*
 * title: DropDownList class
 * description: dropdown ui component
@@ -106,14 +104,13 @@ export class DropDownList {
         });
 
         document.querySelectorAll('.dropdown-item-box')
-        .forEach((element) => {
+        .forEach((element, index) => {
             element.addEventListener('click', (event) => {
-                const targetIndex = getElementIndex(document.querySelectorAll('.dropdown-item-box'), element);
-                const currentOption = this.retriveOptionByIndex(targetIndex);
+                const currentOption = this.retriveOptionByIndex(index);
                 if (this.currentIndex > -1) {
                     this.unselectedDropdownItem(this.currentIndex);
                 }
-                this.currentIndex = targetIndex;
+                this.currentIndex = index;
 
                 if (this.currentIndex > -1) {
                     this.selectedDropdownItem(this.currentIndex);
