@@ -21,9 +21,9 @@ export class DropDownList {
         this.currentIndex = -1;
 
         // data list의 id 필드 명시
-        this.idField = configuration.idField ?? 'id';
+        this.idField = configuration.idField || 'id';
         // data list의 label 필드 명시
-        this.labelField = configuration.labelField ?? 'label';
+        this.labelField = configuration.labelField || 'label';
         // 옵션 데이터 리스트
         this.data = configuration.data;
         // change 변경에 따른 callback
